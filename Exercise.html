@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+	<meta charset="UTF-8">
+	<title>任务十六</title>
+	<style type="text/css">
+		#table,th,td {
+			border: 1px solid #666;
+			border-collapse: collapse;
+			text-align: center;
+		}
+		th,td {
+			width:100px;
+			height: 1.5em;
+		}
+
+		th {
+			background: lightblue;
+			color: #fff;
+		}
+		
+		#btn {
+			background: skyblue;
+			border:0;
+			height: 2em;
+			margin: 20px 0 20px 0;
+			color: #efefef;
+		}
+	</style>
+</head>
+<body>
+
+  <div>
+    <label>城 市 名 称 ：<input id="city-input" type="text"></label><br><br>
+    <label>空气质量指数：<input id="value-input" type="text"></label><br>
+    <button id="btn">确认添加</button>
+  </div>
+  <table id="table">
+	<thead>
+	    <tr>
+	      <th>城市</th><th>空气质量</th><th>操作</th>
+	    </tr>
+    </thead>
+    <tbody>	
+    </tbody>
+
+  </table>
+  <script>
+	var city = document.getElementById('city-input');    //获取城市输入框元素
+	var airValue = document.getElementById('value-input');  //获取空气质量输入框元素
+	var btn = document.getElementById('btn');     //获取按键元素
+	var table = document.getElementById('table');  //获取表格元素
+	var tbody = table.querySelector('tbody');    //获取表格元素（table）中的tbody元素
+
+	btn.onclick = addInfo ;   //把btn 元素绑定 addInfo 事件，即点击btn , 就运行下面的addInfo()函数
+
+	//btn 点击事件处理函数
+	function addInfo() {
+		var newTr = document.createElement('tr');    //创建<tr> 标签
+		// 在tr标签的内容中填入信息 ， td为表格单元格标签元素
+		newTr.innerHTML = '<td>' + city.value + '</td>' +   //city.value 为城市输入框的内容
+						  '<td>' + airValue.value + '</td>' +  //airValue.value 空气质量输入框的内容
+						  '<td>无</td>';
+		tbody.appendChild(newTr);   //把 新创建的节点newTr 插入到tbody 里面
+	}  	
+
+  </script>
+</body>
+</html>
