@@ -5,19 +5,20 @@
 
 //连接数据库
 var mongoose = require('mongoose');
-mongoose.connect('mongodb://localhost/test');
+mongoose.connect('mongodb://localhost/test');  //test 数据库名称
 
 
 var db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error:'));
 db.once('open', function() {
     // we're connected!
-
 });
 
 //新建一个Schema  / 数据库原型
 var kittySchema = mongoose.Schema({
-    name: String
+    name: String,
+    fname: String,
+    lname: String
 });
 
 /*
@@ -41,22 +42,39 @@ kittySchema.methods.speak = function () {
 
 var Kitten = mongoose.model('Kitten', kittySchema);
 
-var fluffy = new Kitten({ name: 'fluffy' });
-var fluffy2 = new Kitten({ name: 'fluffy2' });
-var fluffy3 = new Kitten({ name: 'fluffy3' });
+
+// 新建多个 对象（文档）
+// var fluffy = new Kitten({ name: 'fluffy' });
+// var fluffy2 = new Kitten({ name: 'fluffy2' });
+// var fluffy3 = new Kitten({ name: 'fluffy3' });
 
 //fluffy.speak(); // "Meow name is fluffy"
 
 // fluffy2.save();
 // fluffy3.save();
 
+
+
+
 //保存fluffy文档 到 Kittens 集合
+var fluffy = new Kitten({
+    name:"chenweijie",
+    fname:"chen",
+    lname:"weijie"
+})
 /*
-fluffy.save(function (err, fluffy) {
-    if (err) return console.error(err);
-    fluffy.speak();
+fluffy.save().then(function (product) {
+    console.log(product);
 });
+console.log("保存成功")
 */
+fluffy.save(function (err, product) {
+    console.log(product);
+});
+console.log("保存成功");
+
+
+
 
 //查询所有
  /*
@@ -68,8 +86,40 @@ Kitten.find(function (err, kittens) {
 
 
 //根据正则筛选 查找 Kitten 集合的 文档
+/*
 Kitten.find({ name: /^fluff/ }, function (err, kittens) {  //kittens 文档数组  
     if (err) return console.error(err);
     console.log(kittens);
 });
+*/
+
+
+//批量保存数据
+/*
+var obj = [
+    {fname:"what3",lname:"hehe3"},
+    {fname:"what4",lname:"hehe4"},
+    {fname:"what5",lname:"hehe5"},
+    {fname:"what2",lname:"hehe2"}
+]
+
+Kitten.create(obj,function (err, kittens) {
+    if (err) return console.error(err);
+    console.log(kittens);
+})
+*/
+
+
+
+
+
+
+//删除数据
+/*
+ var query = Kitten.remove({ fname: 'what3' });
+query.exec();
+console.log("删除数据")
+*/
+
+
 
